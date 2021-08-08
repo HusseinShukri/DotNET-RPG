@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31410.357
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RPG.API", "RPG.API\RPG.API.csproj", "{3E3B3295-7339-427E-AF02-473C105FAAAD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RPG.Services", "RPG.Services\RPG.Services.csproj", "{98C1FCAF-8CA1-4601-BE8C-A13E6A72803E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RPG.Domain", "RPG.Domain\RPG.Domain.csproj", "{B08D15AE-58EA-46E7-ABB4-0F7525C4BDC3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3E3B3295-7339-427E-AF02-473C105FAAAD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3E3B3295-7339-427E-AF02-473C105FAAAD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3E3B3295-7339-427E-AF02-473C105FAAAD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3E3B3295-7339-427E-AF02-473C105FAAAD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{98C1FCAF-8CA1-4601-BE8C-A13E6A72803E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{98C1FCAF-8CA1-4601-BE8C-A13E6A72803E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{98C1FCAF-8CA1-4601-BE8C-A13E6A72803E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{98C1FCAF-8CA1-4601-BE8C-A13E6A72803E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B08D15AE-58EA-46E7-ABB4-0F7525C4BDC3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B08D15AE-58EA-46E7-ABB4-0F7525C4BDC3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B08D15AE-58EA-46E7-ABB4-0F7525C4BDC3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B08D15AE-58EA-46E7-ABB4-0F7525C4BDC3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {05C0EF49-FF6D-459E-AB4A-59E65883B4FC}
+	EndGlobalSection
+EndGlobal
