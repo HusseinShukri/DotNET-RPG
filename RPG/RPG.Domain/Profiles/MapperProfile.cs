@@ -26,6 +26,9 @@ namespace RPG.Data.Profiles
                 .ForMember(dir => dir.Intelligence, opt => opt.MapFrom(src => src.Intelligence))
                 .ForMember(dir => dir.Class, opt => opt.MapFrom(src => src.Class))
                 .ReverseMap();
+
+            CreateMap<Character, UpdateCharacterDto>()
+                .ReverseMap();
         }
     }
 }

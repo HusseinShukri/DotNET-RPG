@@ -1,0 +1,13 @@
+{
+  "ConnectionStrings": {
+    "DefultConnection": "Data Source=(localdb)\\SparkProject;Integrated Security=True;Name=RPG;"
+  },
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft": "Warning",
+      "Microsoft.Hosting.Lifetime": "Information"
+    }
+  },
+  "AllowedHosts": "*"
+}

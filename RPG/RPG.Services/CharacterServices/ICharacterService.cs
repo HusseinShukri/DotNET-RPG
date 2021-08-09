@@ -12,5 +12,6 @@ namespace RPG.Services.CharacterServices
         Task<ServiceResponse<List<GetCharacterDto>>> AddCharacter(AddCharacterDto newCharacter);
         Task<ServiceResponse<GetCharacterDto>> UpdateCharacter(UpdateCharacterDto updateCharacter);
         Task<ServiceResponse<List<GetCharacterDto>>> DeleteCharacters(int id);
+        Task<bool> SaveChangesAsync();
     }
 }
