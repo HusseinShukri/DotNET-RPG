@@ -1,4 +1,4 @@
-﻿using RPG.Data.Models;
+﻿using RPG.Domain.Entities;
 
 namespace RPG.Domain.Dto.Character
 {

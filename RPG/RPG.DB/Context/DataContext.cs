@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using RPG.Data.Models;
+using RPG.Domain.Entities;
 
 namespace RPG.Data.Context
 {
@@ -11,6 +11,17 @@ namespace RPG.Data.Context
 
 
         public DbSet<Character> Character { get; set; }
+        public DbSet<User> User { get; set; }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            //FluintApi
+            modelBuilder.Entity<User>()
+               .HasMany(fKey => fKey.Characters)
+               .WithOne(pKey => pKey.User)
+               .OnDelete(DeleteBehavior.Cascade);
+
+            base.OnModelCreating(modelBuilder);
+        }
     }
 }   
