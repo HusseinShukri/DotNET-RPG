@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using RPG.Data.Models;
 using RPG.Domain.Dto.Character;
+using RPG.Domain.Entities;
 
 namespace RPG.Data.Profiles
 {
