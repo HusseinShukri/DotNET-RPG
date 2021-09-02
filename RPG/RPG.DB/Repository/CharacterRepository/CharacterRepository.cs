@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using RPG.Data.Context;
 using RPG.Domain.Dto.Character;
+using RPG.Domain.DTO.Skill;
 using RPG.Domain.Entities;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,32 +21,42 @@ namespace RPG.Data.Repository.CharacterRepository
             _dataContext = dataContext;
         }
 
-        public async Task<List<GetCharacterDto>> AddCharacter(AddCharacterDto newCharacter)
+        //change it later
+        //check if user exist
+        public async Task<List<CharacterDto>> AddCharacter(AddCharacterDto newCharacter, int userId)
         {
             Character character = _mapper.Map<Character>(newCharacter);
+            character.UserId = userId;
             await _dataContext.Character.AddAsync(character);
             await SaveChanges();
-            return _mapper.Map<List<GetCharacterDto>>(await _dataContext.Character.ToListAsync());
+            return _mapper.Map<List<CharacterDto>>(await _dataContext.Character.Where(c => c.User.Id == userId).ToListAsync());
         }
 
-        public async Task<List<GetCharacterDto>> DeleteCharacters(int id)
+        public async Task<List<CharacterDto>> DeleteCharacters(int id, int userId)
         {
-            var character = await _dataContext.Character.FirstOrDefaultAsync(c => c.Id == id);
+            var character = await _dataContext.Character.FirstOrDefaultAsync(c => c.Id == id && c.UserId == userId);
             if (character == null) { return null; }
             _dataContext.Character.Remove(character);
             await SaveChanges();
-            return _mapper.Map<List<GetCharacterDto>>(await _dataContext.Character.ToListAsync());
+            return _mapper.Map<List<CharacterDto>>(await _dataContext.Character.ToListAsync());
         }
 
-        public async Task<List<GetCharacterDto>> GetAllCharacters(int userId)
+        public async Task<List<CharacterDto>> GetAllCharacters(int userId)
         {
-            var a = await _dataContext.Character.Where(c => c.User.Id == userId).ToListAsync();
-            return _mapper.Map<List<GetCharacterDto>>(a);
+            var a = await _dataContext.Character.Include(c => c.Skills)
+                .Include(c => c.Weapon)
+                .Include(c => c.Skills)
+                .Where(c => c.User.Id == userId)
+                .ToListAsync();
+            return _mapper.Map<List<CharacterDto>>(a);
         }
 
-        public async Task<GetCharacterDto> GetCharacterById(int id)
+        public async Task<CharacterDto> GetCharacterById(int id, int userId)
         {
-            return _mapper.Map<GetCharacterDto>(await _dataContext.Character.FirstOrDefaultAsync(c => c.Id == id));
+            return _mapper.Map<CharacterDto>(await _dataContext.Character
+                .Include(c => c.Weapon)
+                .Include(c => c.Skills)
+                .FirstOrDefaultAsync(c => c.Id == id && c.UserId == userId));
         }
 
         public async Task<bool> SaveChanges()
@@ -53,9 +64,9 @@ namespace RPG.Data.Repository.CharacterRepository
             return await _dataContext.SaveChangesAsync() > 0;
         }
 
-        public async Task<GetCharacterDto> UpdateCharacter(UpdateCharacterDto updateCharacter)
+        public async Task<CharacterDto> UpdateCharacter(CharacterDto updateCharacter, int userId)
         {
-            if (await _dataContext.Character.FirstOrDefaultAsync(c => c.Id == updateCharacter.Id) == null)
+            if (await GetCharacterById(updateCharacter.Id, userId) == null)
             {
                 return null;
             }
@@ -63,9 +74,25 @@ namespace RPG.Data.Repository.CharacterRepository
             _dataContext.Character.Update(character);
             if (await SaveChanges())
             {
-                return _mapper.Map<GetCharacterDto>(character);
+                return _mapper.Map<CharacterDto>(character);
             }
             return null;
+        }
+
+        public async Task<CharacterDto> AddCharacterSkill(AddCharacterSkill newCharacterSkill, int userId)
+        {
+            var character = await _dataContext.Character
+                .Include(c => c.Weapon)
+                .Include(c => c.Skills)
+                .FirstOrDefaultAsync(c => c.Id == newCharacterSkill.CharacterId && c.UserId == userId);
+            if (character == null) { return null; }
+            var skill = await _dataContext.Skill.FirstOrDefaultAsync(s => s.Id == newCharacterSkill.SkillId);
+            if (skill == null) { return null; }
+
+            character.Skills = new List<Skill> { skill };
+            _dataContext.Character.Update(character);
+            await _dataContext.SaveChangesAsync();
+            return _mapper.Map<CharacterDto>(character);
         }
     }
 }

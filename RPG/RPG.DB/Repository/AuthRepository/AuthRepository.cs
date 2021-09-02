@@ -78,7 +78,7 @@ namespace RPG.Data.Repository.AuthRepository
         public async Task<bool> SaveChanges()
         {
 
-            return _dataContext.SaveChanges() > 0;
+            return await _dataContext.SaveChangesAsync() > 0;
         }
 
         private void CreatePasswordHash(string password, out byte[] passwordSalt, out byte[] passwordHash)

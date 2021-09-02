@@ -10,8 +10,10 @@ using Microsoft.IdentityModel.Tokens;
 using RPG.Data.Context;
 using RPG.Data.Repository.AuthRepository;
 using RPG.Data.Repository.CharacterRepository;
-using RPG.Services.AuthService;
-using RPG.Services.CharacterServices;
+using RPG.Data.Repository.SkillRepository;
+using RPG.Data.Repository.WeaponRepository;
+using RPG.Services.CharacterService;
+using RPG.Services.FightService;
 using System.Text;
 
 namespace RPG.API
@@ -32,7 +34,7 @@ namespace RPG.API
             services.AddAutoMapper(typeof(Data.Profiles.MapperProfile).Assembly);
             services.AddDbContext<DataContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("DefultConnection"))
-                .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking)
+            .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking)
             );
             services.AddProblemDetails();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -51,9 +53,11 @@ namespace RPG.API
             //Repose
             services.AddScoped<ICharacterRepository, CharacterRepository>();
             services.AddScoped<IAuthRepository, AuthRepository>();
+            services.AddScoped<IWeaponRepository, WeaponRepository>();
+            services.AddScoped<ISkillRepository, SkillRepository>();
             //Services
             services.AddScoped<ICharacterService, CharacterService>();
-            services.AddScoped<IAuthService, AuthService>();
+            services.AddScoped<IFightService, FightService>();
 
         }
 

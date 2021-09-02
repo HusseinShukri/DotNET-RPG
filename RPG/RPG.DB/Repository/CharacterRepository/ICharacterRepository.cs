@@ -1,4 +1,5 @@
 ﻿using RPG.Domain.Dto.Character;
+using RPG.Domain.DTO.Skill;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -6,11 +7,12 @@ namespace RPG.Data.Repository.CharacterRepository
 {
     public interface ICharacterRepository
     {
-        Task<List<GetCharacterDto>> GetAllCharacters(int userId);
-        Task<GetCharacterDto> GetCharacterById(int id);
-        Task<List<GetCharacterDto>> AddCharacter(AddCharacterDto newCharacter);
-        Task<GetCharacterDto> UpdateCharacter(UpdateCharacterDto updateCharacter);
-        Task<List<GetCharacterDto>> DeleteCharacters(int id);
+        Task<List<CharacterDto>> GetAllCharacters(int userId);
+        Task<CharacterDto> GetCharacterById(int id, int userId);
+        Task<List<CharacterDto>> AddCharacter(AddCharacterDto newCharacter, int userId);
+        Task<CharacterDto> AddCharacterSkill(AddCharacterSkill newCharacterSkill, int userId);
+        Task<CharacterDto> UpdateCharacter(CharacterDto updateCharacter, int userId);
+        Task<List<CharacterDto>> DeleteCharacters(int id, int userId);
         Task<bool> SaveChanges();
     }
 }
